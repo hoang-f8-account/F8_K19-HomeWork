@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — F8 System</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/theme.css">
+
+    <!-- Internal CSS rieng cho trang dashboard -->
+    <style>
+        /* Style rieng cho dashboard: them vien cho khoi bao ngoai */
+        div.big {
+            border: 2px solid #ccc;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        /* Them khoang cach cho h3.title trong dashboard */
+        h3.title {
+            letter-spacing: 1px;
+        }
+
+        /* Them mau nen cho p.highlight */
+        p.highlight {
+            background-color: #fff9c4;
+            padding: 4px 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <!--
+      Phan tu phuc tap nhat — CSS Priority Bay hoan chinh (dashboard/index.html)
+      Phan tu nay co: tag(h1) + class(.title) + id(#special) + Inline style
+                       + External CSS (base.css, theme.css) + Internal CSS
+      - base.css: h1(1)=#1a237e | .title(10)=#bf360c | #special(100)=#1565c0
+      - theme.css: .title=#00695c | #special=#e65100 (override base.css)
+      - Internal CSS: khong co rule nao cho h1.title#special cu the
+      - Inline style: color: #d500f9 (tim neon)
+      - Specificity tinh theo thu tu uu tien:
+          Inline style (1000) > #special (100) > .title (10) > h1 (1)
+      - Selector thang: Inline style (1000 — cao nhat tuyet doi, khong the bi override boi selector)
+      - Mau hien thi: #d500f9 (tim neon — inline style thang tat ca)
+    -->
+    <h1 class="title" id="special" style="color: #d500f9;">DASHBOARD</h1>
+
+    <!-- h2.section: specificity .section(10) > h2(1) => mau base.css: #006064 -->
+    <h2 class="section">Tong quan he thong</h2>
+
+    <!-- div.big: Internal CSS them border/padding; .big(10) > div(1) => mau .big: #880e4f -->
+    <div class="big">
+
+        <!-- h3.title: specificity .title(10) > h3(1) => theme.css override => mau: #00695c -->
+        <h3 class="title">Courses</h3>
+        <!-- p.highlight: Internal CSS them background-color; .highlight mau: #f57f17 -->
+        <p class="highlight">Danh sach cac khoa hoc trong he thong</p>
+
+    </div>
+
+    <div class="big">
+        <h3 class="title">Students</h3>
+        <p class="highlight">Danh sach hoc vien dang hoc</p>
+    </div>
+
+    <div class="big">
+        <h3 class="title">Teachers</h3>
+        <p class="highlight">Danh sach giang vien giang day</p>
+    </div>
+
+    <div class="big">
+        <h3 class="title">Orders</h3>
+        <p class="highlight">Danh sach don hang da dat</p>
+    </div>
+
+    <div class="big">
+        <h3 class="title">Reports</h3>
+        <p class="highlight">Thong ke toan he thong</p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teachers — F8 System</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/theme.css">
+
+    <!-- Internal CSS: override mau h3 -->
+    <style>
+        /* Override mau h3 cho trang teachers, khac so voi base.css (#1b5e20) */
+        h3 {
+            color: #e64a19; /* Cam chay — override base.css */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- h1: chi co tag selector => mau base.css: #1a237e (xanh duong dam) -->
+    <h1>TEACHERS PAGE</h1>
+
+    <!--
+      Phan tu 2 — CSS Priority Bay (teachers/index.html)
+      Phan tu nay co: tag(h2) + class(.title) + id(#special) + External CSS
+      - base.css: h2 = #6a1b9a | .title = #bf360c | #special = #1565c0
+      - theme.css: h2 = #c62828 | .title = #00695c | #special = #e65100
+      - Specificity:
+          h2       => (0, 0, 1) = 1
+          .title   => (0, 1, 0) = 10
+          #special => (1, 0, 0) = 100
+      - Selector thang: #special (specificity cao nhat = 100)
+      - Mau hien thi: #e65100 (cam chay — mau cua #special trong theme.css)
+        (theme.css link sau base.css nen theme.css override #special cua base.css)
+    -->
+    <h2 class="title" id="special">Danh sach giang vien</h2>
+
+    <!-- h3.section: Internal CSS override h3 thanh #e64a19
+         Nhung specificity: h3(1) vs .section(10) => .section thang => mau: #006064 (base.css)
+         Tuy nhien Internal CSS viet cho h3 thoi, khong anh huong .section
+         => h3.section: .section(10) > h3(1) => mau .section tu base.css: #006064 -->
+    <h3 class="section">Giang vien HTML</h3>
+    <h3 class="section">Giang vien CSS</h3>
+    <h3 class="section">Giang vien Javascript</h3>
+    <h3 class="section">Giang vien React</h3>
+
+</body>
+</html>

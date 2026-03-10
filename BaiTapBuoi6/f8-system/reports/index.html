@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports — F8 System</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/theme.css">
+
+    <!-- Internal CSS rieng cho trang reports -->
+    <style>
+        /* Override mau h1 cho trang reports */
+        h1 {
+            color: #3e2723; /* nau dam — override base.css */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- h1: tag selector => mau base.css: #1a237e (xanh duong dam) -->
+    <h1>REPORT PAGE</h1>
+
+    <!--
+      h2.title: specificity .title(10) > h2(1)
+      theme.css override .title thanh #00695c
+      => Mau hien thi: #00695c (xanh la — theme.css thang)
+    -->
+    <h2 class="title">Thong ke he thong</h2>
+
+    <!--
+      div.section#main: specificity #main(100) > .section(10) > div(1)
+      base.css: .section = #006064 | #main = #37474f
+      => #main thang (100 > 10)
+      => Mau hien thi: #37474f (xam dam — #main trong base.css)
+    -->
+    <div class="section" id="main">
+
+        <!--
+          p.title: specificity .title(10) > p(1)
+          theme.css override .title thanh #00695c
+          => Mau hien thi: #00695c (xanh la)
+        -->
+        <p class="title">Tong so hoc vien</p>
+
+        <!-- p.big: specificity .big(10) > p(1) => mau base.css: #880e4f (hong dam) -->
+        <p class="big">Tong so khoa hoc</p>
+
+        <!-- p + inline style: Inline style thang tag/class selector
+             Specificity: Inline(1000) > p(1)
+             Mau hien thi: #ab47bc (tim nhat — inline style) -->
+        <p style="color: #ab47bc;">Tong so don hang</p>
+
+        <!-- p.highlight: specificity .highlight(10) > p(1) => mau base.css: #f57f17 (vang cam) -->
+        <p class="highlight">Doanh thu</p>
+
+    </div>
+
+</body>
+</html>

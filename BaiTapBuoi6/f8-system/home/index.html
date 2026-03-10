@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home — F8 System</title>
+    <!-- Link base.css truoc, theme.css sau de theme co the override base -->
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/theme.css">
+</head>
+<body>
+
+    <!--
+      Phan tu 1 — CSS Priority Bay (home/index.html)
+      Phan tu nay co: tag(h1) + class(.title) + id(#main) + External CSS (base.css, theme.css)
+      - base.css: h1 = #1a237e | .title = #bf360c | #main = #37474f
+      - theme.css: .title = #00695c (override .title cua base.css)
+      - Specificity:
+          h1        => (0, 0, 1) = 1
+          .title    => (0, 1, 0) = 10
+          #main     => (1, 0, 0) = 100
+      - Selector thang: #main (specificity cao nhat = 100)
+      - Mau hien thi: #37474f (xam dam — mau cua #main trong base.css)
+      - Ghi chu: theme.css override .title thanh #00695c nhung .title (10) van thua #main (100)
+    -->
+    <h1 class="title" id="main">HOME PAGE</h1>
+
+    <!--
+      h2 nay dung .title — bi override boi theme.css
+      base.css danh cho h2: #6a1b9a (tim)
+      base.css danh cho .title: #bf360c (cam day)
+      theme.css override .title thanh: #00695c (xanh la)
+      Specificity: h2 = (0,0,1)=1 | .title = (0,1,0)=10
+      Selector thang: .title (10 > 1)
+      theme.css link sau base.css nen mau cuoi cung: #00695c
+    -->
+    <h2 class="title">Gioi thieu he thong</h2>
+
+    <h3 class="section">Cac khoa hoc noi bat</h3>
+
+    <p>HTML</p>
+    <p>CSS</p>
+    <p>Javascript</p>
+    <p>Python</p>
+
+</body>
+</html>

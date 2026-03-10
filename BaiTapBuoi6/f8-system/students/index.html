@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students — F8 System</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/theme.css">
+</head>
+<body>
+
+    <!--
+      Phan tu: h1 + id(#main)
+      Specificity: h1(1) vs #main(100)
+      Selector thang: #main (100 > 1)
+      Mau hien thi: #37474f (xam dam — mau cua #main trong base.css)
+    -->
+    <h1 id="main">STUDENTS PAGE</h1>
+
+    <!-- h2.title: specificity .title(10) > h2(1) => theme.css override => mau: #00695c -->
+    <h2 class="title">Danh sach hoc vien</h2>
+
+    <!-- Nhom 1: h3.title — specificity .title(10) > h3(1) => theme.css override => mau: #00695c -->
+    <h3 class="title">Nhom 1:</h3>
+
+    <!--
+      p.highlight: specificity .highlight(10) > p(1)
+      Selector thang: .highlight
+      Mau hien thi: #f57f17 (vang cam — mau cua .highlight trong base.css)
+    -->
+    <p class="highlight">Nguyen Van A</p>
+    <p class="highlight">Tran Van B</p>
+
+    <!-- Nhom 2: h3.title — giong Nhom 1, specificity .title(10) => mau: #00695c -->
+    <h3 class="title">Nhom 2:</h3>
+
+    <p class="highlight">Le Van C</p>
+
+    <!-- p.big: specificity .big(10) > p(1) => mau base.css: #880e4f (hong dam) -->
+    <p class="big">Pham Van D</p>
+
+</body>
+</html>

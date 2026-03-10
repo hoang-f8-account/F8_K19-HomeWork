@@ -1,0 +1,20 @@
+/* =============================================
+   theme.css — Override mot so style tu base.css
+   De theme.css co the override base.css,
+   file nay phai duoc link SAU base.css trong HTML.
+   ============================================= */
+
+/* Override mau cua .title */
+.title {
+    color: #00695c; /* Xanh la (override cam day cua base.css) */
+}
+
+/* Override mau cua h2 */
+h2 {
+    color: #c62828; /* Do (override tim cua base.css) */
+}
+
+/* Override mau cua #special */
+#special {
+    color: #e65100; /* Cam chay (override xanh da troi cua base.css) */
+}

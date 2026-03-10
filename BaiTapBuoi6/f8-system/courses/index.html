@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses — F8 System</title>
+    <!-- Link External CSS -->
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/theme.css">
+
+    <!-- Internal CSS — override it nhat 3 selector tu file CSS ngoai -->
+    <style>
+        /* Override h1 — doi mau khac so voi base.css (#1a237e) */
+        h1 {
+            color: #e91e63; /* Hong tuoi — override base.css */
+        }
+
+        /* Override .section — doi mau chu */
+        .section {
+            color: #ff6f00; /* Cam am — override base.css (#006064) */
+        }
+
+        /* Override p — doi co chu va mau chu */
+        p {
+            color: #1976d2; /* Xanh la cay — override base.css (#4e342e) */
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- h1 bi override boi Internal CSS => mau: #e91e63 (hong tuoi) -->
+    <h1>COURSES PAGE</h1>
+
+    <!-- h2.title => specificity: .title(10) > h2(1) => mau tu theme.css: #00695c -->
+    <h2 class="title">Danh sach khoa hoc</h2>
+
+    <!-- div.section bi override boi Internal CSS => mau: #ff6f00 -->
+    <div class="section">
+
+        <!-- p.highlight: specificity .highlight(10) > p(1) => mau base.css: #f57f17 -->
+        <!-- p bi override by Internal CSS (mau p = #1976d2) nhung .highlight co specificity cao hon -->
+        <p class="highlight">HTML co ban</p>
+        <p class="highlight">CSS co ban</p>
+        <p class="highlight">Javascript nang cao</p>
+        <p class="highlight">ReactJS</p>
+        <p class="highlight">NodeJS</p>
+
+    </div>
+
+</body>
+</html>
