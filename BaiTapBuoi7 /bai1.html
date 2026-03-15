@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="vi">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Bai tap 1</title>
+      <style>
+         * {
+            box-sizing: border-box;
+         }
+
+         body {
+            margin: 0;
+            padding: 30px 0;
+            background: #ececec;
+            color: #111827;
+            font-family: "Times New Roman", serif;
+         }
+
+         input {
+            position: absolute;
+            left: -9999px;
+         }
+
+         .panel {
+            width: 760px;
+            max-width: 92%;
+            margin: 0 auto;
+            border: 4px solid #111111;
+            background: #ffffff;
+         }
+
+         .panel-heading {
+            margin: 0;
+            padding: 10px 14px;
+            background: #f98000;
+            color: #f9fafb;
+            font-size: 18px;
+            font-weight: bold;
+         }
+
+         .panel-body {
+            padding: 14px 0 0;
+         }
+
+         .group {
+            padding: 0 18px;
+            margin-bottom: 18px;
+         }
+
+         .group-title {
+            margin: 0 0 10px;
+            font-size: 15px;
+            font-weight: normal;
+         }
+
+         .choice {
+            display: inline-block;
+            margin: 0 10px 8px 0;
+            color: #4b5563;
+            cursor: pointer;
+            font-size: 15px;
+         }
+
+         .choice::before {
+            display: inline-block;
+            width: 11px;
+            height: 11px;
+            margin-right: 5px;
+            vertical-align: middle;
+            background: #ffffff;
+            border: 1px solid #9ca3af;
+            content: "";
+         }
+
+         .choice-radio::before {
+            border-radius: 50%;
+         }
+
+         .choice-check::before {
+            border-radius: 2px;
+         }
+
+         .choice-text {
+            display: inline-block;
+            padding: 1px 4px;
+            vertical-align: middle;
+         }
+
+         .result {
+            padding: 0 0 14px;
+         }
+
+         .desc {
+            margin: 0;
+            padding: 7px 18px;
+            background: #f3f4f6;
+            color: #9ca3af;
+            font-size: 15px;
+            line-height: 1.5;
+         }
+
+         .desc + .desc {
+            margin-top: 8px;
+         }
+
+         .desc-language-vi,
+         .desc-language-en {
+            font-size: 14px;
+         }
+
+         #theme-light:checked ~ .panel label[for="theme-light"]::before,
+         #theme-dark:checked ~ .panel label[for="theme-dark"]::before,
+         #color-red:checked ~ .panel label[for="color-red"]::before,
+         #color-blue:checked ~ .panel label[for="color-blue"]::before,
+         #color-green:checked ~ .panel label[for="color-green"]::before,
+         #language-vi:checked ~ .panel label[for="language-vi"]::before,
+         #language-en:checked ~ .panel label[for="language-en"]::before {
+            border-color: #3b82f6;
+            box-shadow: inset 0 0 0 3px #3b82f6;
+         }
+
+         #option-advanced:checked ~ .panel label[for="option-advanced"]::before,
+         #option-eco:checked ~ .panel label[for="option-eco"]::before,
+         #option-warning:checked ~ .panel label[for="option-warning"]::before {
+            border-color: #3b82f6;
+            background: #3b82f6;
+            color: #ffffff;
+            text-align: center;
+            line-height: 11px;
+            content: "\2713";
+         }
+
+         #theme-light:checked ~ .panel label[for="theme-light"] .choice-text {
+            background: #fff8cc;
+            color: #8b5e00;
+         }
+
+         #theme-dark:checked ~ .panel label[for="theme-dark"] .choice-text {
+            background: #111827;
+            color: #f9fafb;
+         }
+
+         #color-red:checked ~ .panel label[for="color-red"] .choice-text {
+            background: #fee2e2;
+            color: #991b1b;
+         }
+
+         #color-blue:checked ~ .panel label[for="color-blue"] .choice-text {
+            background: #dbeafe;
+            color: #1d4ed8;
+         }
+
+         #color-green:checked ~ .panel label[for="color-green"] .choice-text {
+            background: #dcfce7;
+            color: #166534;
+         }
+
+         #language-vi:checked ~ .panel label[for="language-vi"] .choice-text {
+            background: #bbf7d0;
+            color: #166534;
+         }
+
+         #language-en:checked ~ .panel label[for="language-en"] .choice-text {
+            background: #bfdbfe;
+            color: #1d4ed8;
+         }
+
+         #option-advanced:checked ~ .panel label[for="option-advanced"] .choice-text {
+            background: #fef3c7;
+            color: #92400e;
+         }
+
+         #option-eco:checked ~ .panel label[for="option-eco"] .choice-text {
+            background: #bbf7d0;
+            color: #15803d;
+         }
+
+         #option-warning:checked ~ .panel label[for="option-warning"] .choice-text {
+            background: #fee2e2;
+            color: #b91c1c;
+         }
+
+         #theme-light:checked ~ .panel .desc-theme-light {
+            background: #fff8cc;
+            color: #111827;
+            font-weight: bold;
+         }
+
+         #theme-dark:checked ~ .panel .desc-theme-dark {
+            background: #111827;
+            color: #f9fafb;
+            font-weight: bold;
+         }
+
+         #color-red:checked ~ .panel .desc-color-red {
+            background: #fee2e2;
+            color: #7f1d1d;
+            font-weight: bold;
+         }
+
+         #color-blue:checked ~ .panel .desc-color-blue {
+            background: #dbeafe;
+            color: #1d4ed8;
+            font-weight: bold;
+         }
+
+         #color-green:checked ~ .panel .desc-color-green {
+            background: #dcfce7;
+            color: #166534;
+            font-weight: bold;
+         }
+
+         #language-vi:checked ~ .panel .desc-language-vi {
+            color: #166534;
+            font-size: 17px;
+            font-weight: bold;
+         }
+
+         #language-en:checked ~ .panel .desc-language-en {
+            color: #1d4ed8;
+            font-size: 17px;
+            font-weight: bold;
+         }
+
+         #option-advanced:checked ~ .panel .desc-option-advanced {
+            background: #fef3c7;
+            color: #92400e;
+         }
+
+         #option-eco:checked ~ .panel .desc-option-eco {
+            background: #bbf7d0;
+            color: #166534;
+         }
+
+         #option-warning:checked ~ .panel .desc-option-warning {
+            background: #fee2e2;
+            color: #b91c1c;
+         }
+      </style>
+   </head>
+   <body>
+      <input type="radio" name="theme" id="theme-light" checked />
+      <input type="radio" name="theme" id="theme-dark" />
+
+      <input type="radio" name="color" id="color-red" checked />
+      <input type="radio" name="color" id="color-blue" />
+      <input type="radio" name="color" id="color-green" />
+
+      <input type="radio" name="language" id="language-vi" checked />
+      <input type="radio" name="language" id="language-en" />
+
+      <input type="checkbox" id="option-advanced" />
+      <input type="checkbox" id="option-eco" />
+      <input type="checkbox" id="option-warning" />
+
+      <div class="panel">
+         <h1 class="panel-heading">Trung tam cau hinh giao dien (Demo)</h1>
+
+         <div class="panel-body">
+            <div class="group">
+               <p class="group-title">Chon giao dien (Theme):</p>
+               <label for="theme-light" class="choice choice-radio">
+                  <span class="choice-text">Light</span>
+               </label>
+               <label for="theme-dark" class="choice choice-radio">
+                  <span class="choice-text">Dark</span>
+               </label>
+            </div>
+
+            <div class="group">
+               <p class="group-title">Chon mau chu dao (Color):</p>
+               <label for="color-red" class="choice choice-radio">
+                  <span class="choice-text">Red</span>
+               </label>
+               <label for="color-blue" class="choice choice-radio">
+                  <span class="choice-text">Blue</span>
+               </label>
+               <label for="color-green" class="choice choice-radio">
+                  <span class="choice-text">Green</span>
+               </label>
+            </div>
+
+            <div class="group">
+               <p class="group-title">Chon ngon ngu (Language):</p>
+               <label for="language-vi" class="choice choice-radio">
+                  <span class="choice-text">VI</span>
+               </label>
+               <label for="language-en" class="choice choice-radio">
+                  <span class="choice-text">EN</span>
+               </label>
+            </div>
+
+            <div class="group">
+               <p class="group-title">Tuy chon bo sung (Options - Checkbox):</p>
+               <label for="option-advanced" class="choice choice-check">
+                  <span class="choice-text">Hien thi mo ta nang cao</span>
+               </label>
+               <label for="option-eco" class="choice choice-check">
+                  <span class="choice-text">Bat che do Eco</span>
+               </label>
+               <label for="option-warning" class="choice choice-check">
+                  <span class="choice-text">Hien thi canh bao quan trong</span>
+               </label>
+            </div>
+         </div>
+
+         <div class="result">
+            <p class="desc desc-theme-light">
+               Theme Light: Giao dien sang, chu den.
+            </p>
+            <p class="desc desc-theme-dark">
+               Theme Dark: Giao dien toi, chu sang.
+            </p>
+
+            <p class="desc desc-color-red">
+               Mau Red: duoc nhan manh khi chon Red.
+            </p>
+            <p class="desc desc-color-blue">
+               Mau Blue: duoc nhan manh khi chon Blue.
+            </p>
+            <p class="desc desc-color-green">
+               Mau Green: duoc nhan manh khi chon Green.
+            </p>
+
+            <p class="desc desc-language-vi">
+               [VI] Xin chao ban! Khi chon VI, dong nay ro hon.
+            </p>
+            <p class="desc desc-language-en">
+               [EN] Hello, world! Khi chon EN, dong nay ro hon.
+            </p>
+
+            <p class="desc desc-option-advanced">
+               Mo ta nang cao: giai thich ky hon ve cach cac lua chon dang anh
+               huong giao dien.
+            </p>
+            <p class="desc desc-option-eco">
+               Che do Eco: mo phong trang thai tiet kiem tai nguyen cho giao
+               dien.
+            </p>
+            <p class="desc desc-option-warning">
+               Canh bao quan trong: khu vuc dung de nhan manh thong tin he
+               thong.
+            </p>
+         </div>
+      </div>
+   </body>
+</html>
