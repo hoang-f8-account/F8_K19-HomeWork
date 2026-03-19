@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Profile Customizer</title>
+    <style>
+        /* ===== RESET ===== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ===== LAYOUT CHINH ===== */
+        body {
+            font-size: 16px;
+            background: #eee;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .layout {
+            width: 95vw;
+            margin: 0 auto;
+            font-size: 0;
+        }
+
+        .control-panel {
+            display: inline-block;
+            width: calc(35% - 10px);
+            vertical-align: top;
+            background: #f5f5f5;
+            padding: 20px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .preview-area {
+            display: inline-block;
+            width: calc(65% - 10px);
+            vertical-align: top;
+            font-size: 16px;
+            min-height: calc(100vh - 40px);
+        }
+
+        /* ===== AN CAC RADIO INPUT ===== */
+        .layout > input[type="radio"] {
+            display: none;
+        }
+
+        /* ===== CONTROL PANEL ===== */
+        .panel-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .control-group {
+            margin-bottom: 12px;
+        }
+
+        .control-group-title {
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+        }
+
+        .control-group label {
+            display: inline-block;
+            padding: 0.3em 0.6em;
+            background: #ddd;
+            margin-right: 4px;
+            margin-bottom: 4px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        /* ===== LABEL ACTIVE STATE ===== */
+        /* 1. Background Theme */
+        #bg-light:checked ~ .control-panel label[for="bg-light"],
+        #bg-gray:checked ~ .control-panel label[for="bg-gray"],
+        #bg-yellow:checked ~ .control-panel label[for="bg-yellow"],
+        #bg-blue:checked ~ .control-panel label[for="bg-blue"],
+        #bg-pink:checked ~ .control-panel label[for="bg-pink"],
+        /* 2. Name Size */
+        #name-size-sm:checked ~ .control-panel label[for="name-size-sm"],
+        #name-size-md:checked ~ .control-panel label[for="name-size-md"],
+        #name-size-lg:checked ~ .control-panel label[for="name-size-lg"],
+        /* 3. Name Style */
+        #name-style-normal:checked ~ .control-panel label[for="name-style-normal"],
+        #name-style-upper:checked ~ .control-panel label[for="name-style-upper"],
+        /* 4. Name Color */
+        #name-color-dark:checked ~ .control-panel label[for="name-color-dark"],
+        #name-color-blue:checked ~ .control-panel label[for="name-color-blue"],
+        #name-color-green:checked ~ .control-panel label[for="name-color-green"],
+        #name-color-red:checked ~ .control-panel label[for="name-color-red"],
+        /* 5. Alignment */
+        #align-left:checked ~ .control-panel label[for="align-left"],
+        #align-center:checked ~ .control-panel label[for="align-center"],
+        #align-right:checked ~ .control-panel label[for="align-right"],
+        /* 6. Job Size */
+        #job-size-sm:checked ~ .control-panel label[for="job-size-sm"],
+        #job-size-md:checked ~ .control-panel label[for="job-size-md"],
+        #job-size-lg:checked ~ .control-panel label[for="job-size-lg"],
+        /* 7. Job Spacing */
+        #job-spacing-tight:checked ~ .control-panel label[for="job-spacing-tight"],
+        #job-spacing-normal:checked ~ .control-panel label[for="job-spacing-normal"],
+        #job-spacing-wide:checked ~ .control-panel label[for="job-spacing-wide"],
+        /* 8. Desc Size */
+        #desc-size-sm:checked ~ .control-panel label[for="desc-size-sm"],
+        #desc-size-md:checked ~ .control-panel label[for="desc-size-md"],
+        #desc-size-lg:checked ~ .control-panel label[for="desc-size-lg"],
+        /* 9. Desc Line Height */
+        #desc-lh-tight:checked ~ .control-panel label[for="desc-lh-tight"],
+        #desc-lh-normal:checked ~ .control-panel label[for="desc-lh-normal"],
+        #desc-lh-loose:checked ~ .control-panel label[for="desc-lh-loose"],
+        /* 10. Button Color */
+        #btn-color-dark:checked ~ .control-panel label[for="btn-color-dark"],
+        #btn-color-blue:checked ~ .control-panel label[for="btn-color-blue"],
+        #btn-color-light:checked ~ .control-panel label[for="btn-color-light"] {
+            font-weight: bold;
+            background: white;
+        }
+
+        /* ===== PREVIEW AREA ===== */
+        .preview-title {
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        .profile-card {
+            background: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .profile-name {
+            font-size: 2.35rem;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .profile-job {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .profile-desc {
+            font-size: 1.125rem;
+            line-height: 2;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .skill-section {
+            margin-bottom: 15px;
+        }
+
+        .skill-list {
+            margin-bottom: 10px;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            background: #f0f0f0;
+            padding: 0.3em 0.7em;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            font-size: 0.85rem;
+        }
+
+        .hobby-section {
+            margin-bottom: 20px;
+        }
+
+        .hobby-list {
+            margin-bottom: 10px;
+        }
+
+        .hobby-tag {
+            display: inline-block;
+            font-size: 0.85rem;
+            margin-right: 8px;
+            margin-bottom: 5px;
+        }
+
+        .btn-contact {
+            display: inline-block;
+            padding: 0.6em 1.5em;
+            background: blue;
+            color: white;
+            font-size: 0.9rem;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* ===== ACTIVITY LOGIC — :checked RULES ===== */
+
+        /* 1. Background Theme */
+        #bg-light:checked ~ .preview-area .profile-card {
+            background: white;
+        }
+        #bg-gray:checked ~ .preview-area .profile-card {
+            background: lightgray;
+        }
+        #bg-yellow:checked ~ .preview-area .profile-card {
+            background: lightyellow;
+        }
+        #bg-blue:checked ~ .preview-area .profile-card {
+            background: lightblue;
+        }
+        #bg-pink:checked ~ .preview-area .profile-card {
+            background: pink;
+        }
+
+        /* 2. Name Size */
+        #name-size-sm:checked ~ .preview-area .profile-name {
+            font-size: 2rem;
+        }
+        #name-size-md:checked ~ .preview-area .profile-name {
+            font-size: 2.35rem;
+        }
+        #name-size-lg:checked ~ .preview-area .profile-name {
+            font-size: 2.75rem;
+        }
+
+        /* 3. Name Text Style */
+        #name-style-normal:checked ~ .preview-area .profile-name {
+            text-transform: none;
+        }
+        #name-style-upper:checked ~ .preview-area .profile-name {
+            text-transform: uppercase;
+        }
+
+        /* 4. Name Color */
+        #name-color-dark:checked ~ .preview-area .profile-name {
+            color: black;
+        }
+        #name-color-blue:checked ~ .preview-area .profile-name {
+            color: blue;
+        }
+        #name-color-green:checked ~ .preview-area .profile-name {
+            color: green;
+        }
+        #name-color-red:checked ~ .preview-area .profile-name {
+            color: red;
+        }
+
+        /* 5. Text Alignment */
+        #align-left:checked ~ .preview-area .profile-card {
+            text-align: left;
+        }
+        #align-center:checked ~ .preview-area .profile-card {
+            text-align: center;
+        }
+        #align-right:checked ~ .preview-area .profile-card {
+            text-align: right;
+        }
+
+        /* 6. Job Title Size */
+        #job-size-sm:checked ~ .preview-area .profile-job {
+            font-size: 0.9rem;
+        }
+        #job-size-md:checked ~ .preview-area .profile-job {
+            font-size: 1.1rem;
+        }
+        #job-size-lg:checked ~ .preview-area .profile-job {
+            font-size: 1.3rem;
+        }
+
+        /* 7. Job Letter Spacing */
+        #job-spacing-tight:checked ~ .preview-area .profile-job {
+            letter-spacing: -0.03em;
+        }
+        #job-spacing-normal:checked ~ .preview-area .profile-job {
+            letter-spacing: 0.02em;
+        }
+        #job-spacing-wide:checked ~ .preview-area .profile-job {
+            letter-spacing: 0.18em;
+        }
+
+        /* 8. Description Size */
+        #desc-size-sm:checked ~ .preview-area .profile-desc {
+            font-size: 0.9rem;
+        }
+        #desc-size-md:checked ~ .preview-area .profile-desc {
+            font-size: 1rem;
+        }
+        #desc-size-lg:checked ~ .preview-area .profile-desc {
+            font-size: 1.125rem;
+        }
+
+        /* 9. Description Line Height */
+        #desc-lh-tight:checked ~ .preview-area .profile-desc {
+            line-height: 1.6;
+        }
+        #desc-lh-normal:checked ~ .preview-area .profile-desc {
+            line-height: 1.8;
+        }
+        #desc-lh-loose:checked ~ .preview-area .profile-desc {
+            line-height: 2;
+        }
+
+        /* 10. Contact Button Color */
+        #btn-color-dark:checked ~ .preview-area .btn-contact {
+            background: #1a1a1a;
+            color: white;
+        }
+        #btn-color-blue:checked ~ .preview-area .btn-contact {
+            background: blue;
+            color: white;
+        }
+        #btn-color-light:checked ~ .preview-area .btn-contact {
+            background: #f5f5f5;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <!-- ===== ALL RADIO INPUTS (hidden, siblings of .control-panel and .preview-area) ===== -->
+
+        <!-- 1. Background Theme -->
+        <input type="radio" name="bg" id="bg-light">
+        <input type="radio" name="bg" id="bg-gray">
+        <input type="radio" name="bg" id="bg-yellow">
+        <input type="radio" name="bg" id="bg-blue" checked>
+        <input type="radio" name="bg" id="bg-pink">
+
+        <!-- 2. Name Size -->
+        <input type="radio" name="name-size" id="name-size-sm">
+        <input type="radio" name="name-size" id="name-size-md" checked>
+        <input type="radio" name="name-size" id="name-size-lg">
+
+        <!-- 3. Name Text Style -->
+        <input type="radio" name="name-style" id="name-style-normal">
+        <input type="radio" name="name-style" id="name-style-upper" checked>
+
+        <!-- 4. Name Color -->
+        <input type="radio" name="name-color" id="name-color-dark">
+        <input type="radio" name="name-color" id="name-color-blue" checked>
+        <input type="radio" name="name-color" id="name-color-green">
+        <input type="radio" name="name-color" id="name-color-red">
+
+        <!-- 5. Text Alignment -->
+        <input type="radio" name="align" id="align-left">
+        <input type="radio" name="align" id="align-center" checked>
+        <input type="radio" name="align" id="align-right">
+
+        <!-- 6. Job Title Size -->
+        <input type="radio" name="job-size" id="job-size-sm">
+        <input type="radio" name="job-size" id="job-size-md">
+        <input type="radio" name="job-size" id="job-size-lg" checked>
+
+        <!-- 7. Job Letter Spacing -->
+        <input type="radio" name="job-spacing" id="job-spacing-tight">
+        <input type="radio" name="job-spacing" id="job-spacing-normal" checked>
+        <input type="radio" name="job-spacing" id="job-spacing-wide">
+
+        <!-- 8. Description Size -->
+        <input type="radio" name="desc-size" id="desc-size-sm">
+        <input type="radio" name="desc-size" id="desc-size-md">
+        <input type="radio" name="desc-size" id="desc-size-lg" checked>
+
+        <!-- 9. Description Line Height -->
+        <input type="radio" name="desc-lh" id="desc-lh-tight">
+        <input type="radio" name="desc-lh" id="desc-lh-normal">
+        <input type="radio" name="desc-lh" id="desc-lh-loose" checked>
+
+        <!-- 10. Contact Button Color -->
+        <input type="radio" name="btn-color" id="btn-color-dark">
+        <input type="radio" name="btn-color" id="btn-color-blue" checked>
+        <input type="radio" name="btn-color" id="btn-color-light">
+
+        <!-- ===== CONTROL PANEL ===== -->
+        <div class="control-panel">
+            <p class="panel-title">Tuy chinh ho so</p>
+
+            <!-- 1. Background Theme -->
+            <div class="control-group">
+                <p class="control-group-title">1. Mau nen ho so</p>
+                <label for="bg-light">Light</label>
+                <label for="bg-gray">Gray</label>
+                <label for="bg-yellow">Yellow</label>
+                <label for="bg-blue">Blue</label>
+                <label for="bg-pink">Pink</label>
+            </div>
+
+            <!-- 2. Name Size -->
+            <div class="control-group">
+                <p class="control-group-title">2. Kich thuoc ten</p>
+                <label for="name-size-sm">Small</label>
+                <label for="name-size-md">Medium</label>
+                <label for="name-size-lg">Large</label>
+            </div>
+
+            <!-- 3. Name Text Style -->
+            <div class="control-group">
+                <p class="control-group-title">3. Kieu chu ten</p>
+                <label for="name-style-normal">Normal</label>
+                <label for="name-style-upper">Uppercase</label>
+            </div>
+
+            <!-- 4. Name Color -->
+            <div class="control-group">
+                <p class="control-group-title">4. Mau chu ten</p>
+                <label for="name-color-dark">Dark</label>
+                <label for="name-color-blue">Blue</label>
+                <label for="name-color-green">Green</label>
+                <label for="name-color-red">Red</label>
+            </div>
+
+            <!-- 5. Text Alignment -->
+            <div class="control-group">
+                <p class="control-group-title">5. Can le ho so</p>
+                <label for="align-left">Left</label>
+                <label for="align-center">Center</label>
+                <label for="align-right">Right</label>
+            </div>
+
+            <!-- 6. Job Title Size -->
+            <div class="control-group">
+                <p class="control-group-title">6. Kich thuoc nghe nghiep</p>
+                <label for="job-size-sm">Small</label>
+                <label for="job-size-md">Medium</label>
+                <label for="job-size-lg">Large</label>
+            </div>
+
+            <!-- 7. Job Letter Spacing -->
+            <div class="control-group">
+                <p class="control-group-title">7. Khoang cach chu nghe nghiep</p>
+                <label for="job-spacing-tight">Tight</label>
+                <label for="job-spacing-normal">Normal</label>
+                <label for="job-spacing-wide">Wide</label>
+            </div>
+
+            <!-- 8. Description Size -->
+            <div class="control-group">
+                <p class="control-group-title">8. Kich thuoc mo ta</p>
+                <label for="desc-size-sm">Small</label>
+                <label for="desc-size-md">Medium</label>
+                <label for="desc-size-lg">Large</label>
+            </div>
+
+            <!-- 9. Description Line Height -->
+            <div class="control-group">
+                <p class="control-group-title">9. Gian dong mo ta</p>
+                <label for="desc-lh-tight">Tight</label>
+                <label for="desc-lh-normal">Normal</label>
+                <label for="desc-lh-loose">Loose</label>
+            </div>
+
+            <!-- 10. Contact Button Color -->
+            <div class="control-group">
+                <p class="control-group-title">10. Mau nut lien he</p>
+                <label for="btn-color-dark">Dark</label>
+                <label for="btn-color-blue">Blue</label>
+                <label for="btn-color-light">Light</label>
+            </div>
+        </div>
+
+        <!-- ===== PREVIEW AREA ===== -->
+        <div class="preview-area">
+            <p class="preview-title">Preview ho so ca nhan</p>
+
+            <div class="profile-card">
+                <h1 class="profile-name">Nguyen Thanh Hoang</h1>
+                <p class="profile-job">Frontend Developer · Ho Chi Minh City</p>
+                <p class="profile-desc">
+                    Toi la mot lap trinh vien Frontend voi hon 3 nam kinh nghiem xay dung giao
+                    dien web hien dai, tap trung vao hieu suat va trai nghiem nguoi dung. Toi yeu
+                    thich viec bien y tuong sang tao thanh san pham thuc te.
+                </p>
+
+                <div class="skill-section">
+                    <p class="section-title">Ky nang</p>
+                    <div class="skill-list">
+                        <span class="skill-tag">HTML5</span>
+                        <span class="skill-tag">CSS3</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Figma</span>
+                        <span class="skill-tag">Git</span>
+                    </div>
+                </div>
+
+                <div class="hobby-section">
+                    <p class="section-title">So thich</p>
+                    <div class="hobby-list">
+                        <span class="hobby-tag">Nhiep anh</span>
+                        <span class="hobby-tag">Doc sach</span>
+                        <span class="hobby-tag">Du lich</span>
+                        <span class="hobby-tag">Ca phe</span>
+                    </div>
+                </div>
+
+                <a class="btn-contact">Lien he voi toi</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
