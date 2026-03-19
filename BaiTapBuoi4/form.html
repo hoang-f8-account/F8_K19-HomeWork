@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Form Đăng Ký Thành Viên</title>
+  </head>
+  <body>
+    <!--
+      CÂU HỎI LÝ THUYẾT:
+
+      1. Sự khác nhau giữa method="get" và method="post" là gì?
+         - GET: dữ liệu được gắn vào URL dưới dạng query string (vd: ?name=abc&email=...).
+           Dữ liệu hiện rõ trên trình duyệt, bị giới hạn độ dài, không dùng được cho file/mật khẩu.
+         - POST: dữ liệu được gửi trong body của request, không hiển thị trên URL,
+           không giới hạn kích thước, an toàn hơn cho dữ liệu nhạy cảm và upload file.
+
+      2. Tại sao cần có enctype="multipart/form-data" khi form có upload file?
+         Mặc định form dùng enctype="application/x-www-form-urlencoded", chỉ gửi được text thuần.
+         Khi có upload file (input type="file"), trình duyệt cần gửi dữ liệu nhị phân (binary).
+         enctype="multipart/form-data" cho phép gửi nhiều "phần" dữ liệu khác nhau trong cùng
+         một request, bao gồm cả text lẫn file nhị phân.
+
+      3. Trường type="hidden" có tác dụng gì? Người dùng có thể xem được giá trị của nó không?
+         - Tác dụng: gửi dữ liệu lên server mà không hiển thị cho người dùng thấy trên giao diện.
+           Dùng để truyền thông tin hệ thống như course_id, utm_source, token CSRF,...
+         - Người dùng CÓ THỂ xem giá trị bằng cách mở DevTools (F12) → tab Elements.
+           Do đó không nên lưu thông tin bảo mật trong trường hidden.
+
+      4. Tại sao checkbox không được check thì không gửi lên server, còn radio thì luôn gửi một giá trị?
+         - Checkbox: mỗi checkbox là độc lập. Nếu không được check, trình duyệt coi như
+           "không có giá trị" và bỏ qua hoàn toàn khi gửi form.
+         - Radio: trong một nhóm radio (cùng name), luôn phải có một lựa chọn được chọn
+           (trừ khi không có default). Khi submit, giá trị của radio đang được chọn sẽ được gửi.
+           Bản chất radio là "chọn 1 trong nhiều", nên luôn có một giá trị được submit.
+
+      5. Sự khác nhau giữa disabled và readonly là gì?
+         - readonly: người dùng không thể sửa giá trị, nhưng trường VẪN ĐƯỢC GỬI lên server.
+           Dùng khi muốn hiển thị dữ liệu cố định mà vẫn cần submit (vd: mã tra cứu tự động điền).
+         - disabled: người dùng không thể tương tác, trường bị mờ đi,
+           và KHÔNG ĐƯỢC GỬI lên server khi submit form.
+           Dùng khi muốn vô hiệu hóa hoàn toàn một trường (vd: tính năng chưa mở).
+    -->
+
+    <h1>Đăng Ký Thành Viên</h1>
+
+    <form
+      action="https://api-gateway.f8.edu.vn/action_page.php"
+      method="post"
+      enctype="multipart/form-data"
+    >
+
+      <!-- ========== NHÓM 1: THÔNG TIN CƠ BẢN ========== -->
+      <fieldset>
+        <legend>Nhóm 1 – Thông tin cơ bản</legend>
+
+        <p>
+          <label for="fullname">Họ và tên</label><br />
+          <input
+            type="text"
+            id="fullname"
+            name="fullname"
+            placeholder="Nguyễn Văn A"
+            required
+            autofocus
+            tabindex="1"
+          />
+        </p>
+
+        <p>
+          <label for="email">Email</label><br />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="example@gmail.com"
+            required
+            tabindex="2"
+          />
+        </p>
+
+        <p>
+          <label for="password">Mật khẩu</label><br />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            minlength="6"
+            autocomplete="off"
+            placeholder="Nhập mật khẩu (ít nhất 6 ký tự)"
+            tabindex="3"
+          />
+        </p>
+
+        <p>
+          <label for="confirm_password">Nhập lại mật khẩu</label><br />
+          <input
+            type="password"
+            id="confirm_password"
+            name="confirm_password"
+            required
+            autocomplete="off"
+            placeholder="Nhập lại mật khẩu"
+            tabindex="4"
+          />
+        </p>
+
+        <p>
+          <label for="phone">Số điện thoại</label><br />
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="0xxxxxxxxx"
+            pattern="0[0-9]{9}"
+            tabindex="5"
+          />
+        </p>
+
+        <p>
+          <label for="birthday">Ngày sinh</label><br />
+          <input
+            type="date"
+            id="birthday"
+            name="birthday"
+            required
+            tabindex="6"
+          />
+        </p>
+
+        <p>
+          <label for="age">Tuổi</label><br />
+          <input
+            type="number"
+            id="age"
+            name="age"
+            min="1"
+            max="120"
+            placeholder="Nhập tuổi của bạn"
+            tabindex="7"
+          />
+        </p>
+
+        <p>
+          <label for="website">Website cá nhân</label><br />
+          <input
+            type="url"
+            id="website"
+            name="website"
+            placeholder="https://..."
+            tabindex="8"
+          />
+        </p>
+
+        <p>
+          <label for="address">Địa chỉ</label><br />
+          <input
+            type="text"
+            id="address"
+            name="address"
+            placeholder="Số nhà, đường, phường/xã"
+            tabindex="9"
+          />
+        </p>
+
+        <p>
+          <label for="zipcode">Mã bưu chính</label><br />
+          <input
+            type="text"
+            id="zipcode"
+            name="zipcode"
+            maxlength="6"
+            placeholder="700000"
+            tabindex="10"
+          />
+        </p>
+      </fieldset>
+
+      <!-- ========== NHÓM 2: THÔNG TIN BỔ SUNG ========== -->
+      <fieldset>
+        <legend>Nhóm 2 – Thông tin bổ sung</legend>
+
+        <p>
+          <label>Giới tính</label><br />
+          <input type="radio" id="gender_male" name="gender" value="Nam" required tabindex="11" />
+          <label for="gender_male">Nam</label>
+          <input type="radio" id="gender_female" name="gender" value="Nữ" tabindex="12" />
+          <label for="gender_female">Nữ</label>
+          <input type="radio" id="gender_other" name="gender" value="Khác" tabindex="13" />
+          <label for="gender_other">Khác</label>
+        </p>
+
+        <p>
+          <label>Sở thích</label><br />
+          <input type="checkbox" id="hobby_read" name="hobby" value="Đọc sách" tabindex="14" />
+          <label for="hobby_read">Đọc sách</label>
+          <input type="checkbox" id="hobby_music" name="hobby" value="Nghe nhạc" tabindex="15" />
+          <label for="hobby_music">Nghe nhạc</label>
+          <input type="checkbox" id="hobby_travel" name="hobby" value="Du lịch" tabindex="16" />
+          <label for="hobby_travel">Du lịch</label>
+          <input type="checkbox" id="hobby_program" name="hobby" value="Lập trình" tabindex="17" />
+          <label for="hobby_program">Lập trình</label>
+          <input type="checkbox" id="hobby_cook" name="hobby" value="Nấu ăn" tabindex="18" />
+          <label for="hobby_cook">Nấu ăn</label>
+          <input type="checkbox" id="hobby_sport" name="hobby" value="Thể thao" tabindex="19" />
+          <label for="hobby_sport">Thể thao</label>
+        </p>
+
+        <p>
+          <label for="education">Trình độ học vấn</label><br />
+          <select id="education" name="education" tabindex="20">
+            <option value="">-- Chọn trình độ --</option>
+            <option value="thpt">Trung học</option>
+            <option value="cao_dang">Cao đẳng</option>
+            <option value="dai_hoc">Đại học</option>
+            <option value="sau_dai_hoc">Sau đại học</option>
+          </select>
+        </p>
+
+        <p>
+          <label for="city">Tỉnh / Thành phố</label><br />
+          <select id="city" name="city" multiple size="5" tabindex="21">
+            <option value="hanoi">Hà Nội</option>
+            <option value="hcm">Hồ Chí Minh</option>
+            <option value="danang">Đà Nẵng</option>
+            <option value="haiphong">Hải Phòng</option>
+            <option value="cantho">Cần Thơ</option>
+            <option value="binh_duong">Bình Dương</option>
+            <option value="dong_nai">Đồng Nai</option>
+          </select>
+          <br /><small>Giữ Ctrl (Windows) hoặc Cmd (Mac) để chọn nhiều tỉnh thành</small>
+        </p>
+
+        <p>
+          <label for="job">Nghề nghiệp</label><br />
+          <select id="job" name="job" tabindex="22">
+            <option value="">-- Chọn nghề nghiệp --</option>
+            <option value="hoc_sinh">Học sinh</option>
+            <option value="sinh_vien">Sinh viên</option>
+            <option value="nhan_vien">Nhân viên văn phòng</option>
+            <option value="lap_trinh_vien">Lập trình viên</option>
+            <option value="khac">Khác</option>
+          </select>
+        </p>
+
+        <p>
+          <label>Khoá học quan tâm</label><br />
+          <input type="checkbox" id="course_html" name="course" value="HTML-CSS" tabindex="23" />
+          <label for="course_html">HTML-CSS</label>
+          <input type="checkbox" id="course_js" name="course" value="JavaScript" tabindex="24" />
+          <label for="course_js">JavaScript</label>
+          <input type="checkbox" id="course_react" name="course" value="ReactJS" tabindex="25" />
+          <label for="course_react">ReactJS</label>
+          <input type="checkbox" id="course_node" name="course" value="NodeJS" tabindex="26" />
+          <label for="course_node">NodeJS</label>
+          <input type="checkbox" id="course_python" name="course" value="Python" tabindex="27" />
+          <label for="course_python">Python</label>
+        </p>
+
+        <p>
+          <label>Hình thức học</label><br />
+          <input type="radio" id="study_online" name="study_type" value="Online" tabindex="28" />
+          <label for="study_online">Online</label>
+          <input type="radio" id="study_offline" name="study_type" value="Offline" tabindex="29" />
+          <label for="study_offline">Offline</label>
+        </p>
+
+        <p>
+          <label for="bio">Giới thiệu bản thân</label><br />
+          <textarea
+            id="bio"
+            name="bio"
+            rows="4"
+            placeholder="Viết vài dòng về bản thân..."
+            tabindex="30"
+          ></textarea>
+        </p>
+
+        <p>
+          <label for="avatar">Ảnh đại diện</label><br />
+          <input
+            type="file"
+            id="avatar"
+            name="avatar"
+            accept=".jpg,.png"
+            tabindex="31"
+          />
+        </p>
+
+        <p>
+          <label for="cv">CV / Hồ sơ</label><br />
+          <input
+            type="file"
+            id="cv"
+            name="cv"
+            accept=".pdf,.doc,.docx"
+            tabindex="32"
+          />
+        </p>
+      </fieldset>
+
+      <!-- ========== NHÓM 3: INPUT ĐẶC BIỆT ========== -->
+      <fieldset>
+        <legend>Nhóm 3 – Input đặc biệt</legend>
+
+        <p>
+          <label for="fav_color">Màu yêu thích</label><br />
+          <input
+            type="color"
+            id="fav_color"
+            name="fav_color"
+            value="#ff6600"
+            tabindex="33"
+          />
+        </p>
+
+        <p>
+          <label for="satisfaction">Mức độ hài lòng (0–10): <span id="sat_val">5</span></label><br />
+          <input
+            type="range"
+            id="satisfaction"
+            name="satisfaction"
+            min="0"
+            max="10"
+            value="5"
+            tabindex="34"
+          />
+        </p>
+
+        <p>
+          <label for="study_time">Giờ học trong ngày</label><br />
+          <input
+            type="time"
+            id="study_time"
+            name="study_time"
+            tabindex="35"
+          />
+        </p>
+
+        <p>
+          <label for="start_month">Tháng bắt đầu học</label><br />
+          <input
+            type="month"
+            id="start_month"
+            name="start_month"
+            tabindex="36"
+          />
+        </p>
+
+        <p>
+          <label for="start_week">Tuần bắt đầu học</label><br />
+          <input
+            type="week"
+            id="start_week"
+            name="start_week"
+            tabindex="37"
+          />
+        </p>
+
+        <p>
+          <label for="register_at">Ngày &amp; giờ đăng ký</label><br />
+          <input
+            type="datetime-local"
+            id="register_at"
+            name="register_at"
+            tabindex="38"
+          />
+        </p>
+
+        <p>
+          <label for="search_course">Tìm kiếm khoá học</label><br />
+          <input
+            type="search"
+            id="search_course"
+            name="search_course"
+            placeholder="Nhập tên khoá học..."
+            tabindex="39"
+          />
+        </p>
+
+        <p>
+          <label for="experience">Số năm kinh nghiệm</label><br />
+          <input
+            type="number"
+            id="experience"
+            name="experience"
+            min="0"
+            max="50"
+            step="1"
+            placeholder="Nhập số năm kinh nghiệm"
+            tabindex="40"
+          />
+        </p>
+
+        <p>
+          <label for="budget">Mức học phí mong muốn (0 – 5,000,000 VNĐ)</label><br />
+          <input
+            type="range"
+            id="budget"
+            name="budget"
+            min="0"
+            max="5000000"
+            step="100000"
+            value="1000000"
+            tabindex="41"
+          />
+        </p>
+
+        <p>
+          <label for="fav_lang">Ngôn ngữ lập trình yêu thích</label><br />
+          <input
+            type="text"
+            id="fav_lang"
+            name="fav_lang"
+            placeholder="VD: JavaScript, Python..."
+            tabindex="42"
+          />
+        </p>
+
+        <!--
+          readonly: trường này hiển thị mã khoá học được hệ thống tự điền dựa trên lựa chọn trước.
+          Người dùng không thể sửa nhưng giá trị VẪN ĐƯỢC GỬI lên server khi submit.
+          Dùng readonly vì đây là dữ liệu tham chiếu hệ thống cần gửi đi, không phải dữ liệu nhập tay.
+        -->
+        <p>
+          <label for="course_code">Mã khoá học (tự động điền, không sửa được)</label><br />
+          <input
+            type="text"
+            id="course_code"
+            name="course_code"
+            value="F8-HTML-CSS-2024"
+            readonly
+            tabindex="43"
+          />
+        </p>
+
+        <!--
+          disabled: trường này hiện đang bị vô hiệu hóa vì tính năng chưa mở.
+          Khác với readonly:
+            - readonly: không sửa được, nhưng vẫn submit được.
+            - disabled: không tương tác được, bị mờ, và KHÔNG ĐƯỢC GỬI lên server.
+          Dùng disabled khi tính năng chưa khả dụng hoặc không cần gửi dữ liệu.
+        -->
+        <p>
+          <label for="bonus_code">Mã ưu đãi đặc biệt (tính năng chưa mở)</label><br />
+          <input
+            type="text"
+            id="bonus_code"
+            name="bonus_code"
+            value="COMING_SOON"
+            disabled
+            tabindex="44"
+          />
+        </p>
+      </fieldset>
+
+      <!-- ========== NHÓM 4: XÁC NHẬN & ĐIỀU KHOẢN ========== -->
+      <fieldset>
+        <legend>Nhóm 4 – Xác nhận &amp; điều khoản</legend>
+
+        <p>
+          <input
+            type="checkbox"
+            id="agree_terms"
+            name="agree_terms"
+            value="yes"
+            required
+            tabindex="45"
+          />
+          <label for="agree_terms">Tôi đồng ý với điều khoản sử dụng</label>
+        </p>
+
+        <p>
+          <input
+            type="checkbox"
+            id="subscribe"
+            name="subscribe"
+            value="yes"
+            tabindex="46"
+          />
+          <label for="subscribe">Nhận thông báo qua email</label>
+        </p>
+
+        <p>
+          <input
+            type="checkbox"
+            id="sms_notify"
+            name="sms_notify"
+            value="yes"
+            tabindex="47"
+          />
+          <label for="sms_notify">Nhận thông báo qua SMS</label>
+        </p>
+
+        <p>
+          <label for="ref_code">Mã giới thiệu</label><br />
+          <input
+            type="text"
+            id="ref_code"
+            name="ref_code"
+            placeholder="Nhập mã nếu có"
+            tabindex="48"
+          />
+        </p>
+
+        <!-- Hidden fields: không hiển thị nhưng vẫn được gửi lên server -->
+        <input type="hidden" id="course_id" name="course_id" value="F8_2024" />
+        <input type="hidden" id="utm_source" name="utm_source" value="website" />
+
+        <p>
+          <button type="submit" tabindex="49">Đăng ký ngay</button>
+          <button type="reset" tabindex="50">Nhập lại</button>
+        </p>
+      </fieldset>
+
+    </form>
+  </body>
+</html>
