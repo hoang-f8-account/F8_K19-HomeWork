@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="vi">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Bai 1</title>
+      <style>
+         * {
+            box-sizing: border-box;
+         }
+
+         body {
+            margin: 0;
+            padding: 28px 32px 40px;
+            font-family: Arial, sans-serif;
+            color: #111827;
+            background: #ffffff;
+         }
+
+         h1 {
+            margin: 0 0 36px;
+            font-size: 32px;
+            font-weight: 700;
+         }
+
+         .danh-sach-hinh {
+            font-size: 0;
+         }
+
+         .mau-hinh {
+            display: inline-block;
+            width: 150px;
+            margin: 0 10px 44px;
+            vertical-align: top;
+            font-size: 16px;
+            text-align: center;
+         }
+
+         .khung-hinh {
+            width: 100px;
+            margin: 0 auto 12px;
+         }
+
+         .hinh-vuong {
+            width: 88px;
+            height: 88px;
+            border: 3px solid #dd654c;
+         }
+
+         .hinh-chu-nhat {
+            width: 128px;
+            height: 70px;
+            border: 3px solid #6c9fe3;
+         }
+
+         .tam-giac-len {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 42px 82px 42px;
+            border-color: transparent transparent #72d786 transparent;
+         }
+
+         .tam-giac-xuong {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 82px 42px 0 42px;
+            border-color: #f1ad2a transparent transparent transparent;
+         }
+
+         .tam-giac-trai {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 42px 82px 42px 0;
+            border-color: transparent #9460c0 transparent transparent;
+         }
+
+         .tam-giac-phai {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 42px 0 42px 82px;
+            border-color: transparent transparent transparent #de8a2f;
+         }
+
+         .hinh-thang {
+            width: 108px;
+            height: 0;
+            border-style: solid;
+            border-width: 0 18px 68px 18px;
+            border-color: transparent transparent #66bda3 transparent;
+         }
+
+         .tam-giac-rong {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 68px 52px 68px;
+            border-color: transparent transparent #465770 transparent;
+         }
+
+         .tam-giac-nhon {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 24px 92px 24px;
+            border-color: transparent transparent #c25336 transparent;
+         }
+
+         .tam-giac-can {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 42px 56px 42px;
+            border-color: transparent transparent #d8751d transparent;
+         }
+
+         .mui-ten-phai {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 32px 0 32px 66px;
+            border-color: transparent transparent transparent #5aa88f;
+         }
+
+         .mui-ten-trai {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 32px 66px 32px 0;
+            border-color: transparent #8d52c2 transparent transparent;
+         }
+
+         .ribbon-la-co {
+            width: 116px;
+            height: 0;
+            border-style: solid;
+            /* border-width: 0 34px 64px 0;
+            border-color: transparent transparent #d6573f transparent; */
+            border-width: 32px;
+            border-color: #d6573f transparent #d6573f #d6573f;
+         }
+
+         .f8 {
+            width: 280px;
+            margin-top: 10px;
+         }
+
+         .chu-f,
+         .chu-8 {
+            display: inline-block;
+            margin: 0 18px;
+            vertical-align: top;
+         }
+
+         .chu-f {
+            width: 86px;
+            padding-top: 16px;
+         }
+
+         .thanh-doc-f {
+            width: 18px;
+            height: 164px;
+            border: 18px solid #d95a41;
+            border-right: 0;
+            border-bottom: 0;
+         }
+
+         .thanh-ngang-tren-f,
+         .thanh-ngang-giua-f {
+            height: 18px;
+            border: 18px solid #d95a41;
+            border-left: 0;
+         }
+
+         .thanh-ngang-tren-f {
+            width: 86px;
+            margin: -164px 0 0 18px;
+         }
+
+         .thanh-ngang-giua-f {
+            width: 72px;
+            margin: 36px 0 0 18px;
+         }
+
+         .chu-8 {
+            width: 122px;
+            height: 180px;
+            border: 18px solid #d95a41;
+            padding: 12px 0;
+         }
+
+         .lo-tren,
+         .lo-duoi {
+            width: 34px;
+            height: 34px;
+            margin: 0 auto;
+         }
+
+         .thanh-ngang-giua-8 {
+            width: 86px;
+            height: 18px;
+            border: 18px solid #d95a41;
+            border-left: 0;
+            border-right: 0;
+            margin: 12px auto;
+         }
+
+         p {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+         }
+         .mau-hinh-f8 {
+            height: 500px;
+            width: 500px;
+         }
+         .mau-hinh-f8 > div {
+            margin-bottom: 50px;
+         }
+         .mau-hinh-f8 > p {
+            width: 50%;
+            text-align: center;
+         }
+      </style>
+   </head>
+   <body>
+      <h1>Các hình có thể tạo được với Border</h1>
+
+      <div class="danh-sach-hinh">
+         <div class="mau-hinh">
+            <div class="khung-hinh hinh-vuong"></div>
+            <p>1. Hình vuông</p>
+         </div>
+
+         <div class="mau-hinh">
+            <div class="khung-hinh hinh-chu-nhat"></div>
+            <p>2. Hình chữ nhật</p>
+         </div>
+
+         <div class="mau-hinh">
+            <div class="khung-hinh tam-giac-len"></div>
+            <p>3. Tam giác lên</p>
+         </div>
+
+         <div class="mau-hinh">
+            <div class="khung-hinh tam-giac-xuong"></div>
+            <p>4. Tam giác xuống</p>
+         </div>
+
+         <div class="mau-hinh">
+            <div class="khung-hinh tam-giac-trai"></div>
+            <p>5. Tam giác trái</p>
+         </div>
+
+         <div class="mau-hinh">
+            <div class="khung-hinh tam-giac-phai"></div>
+            <p>6. Tam giác phải</p>
+         </div>
+
+         <div class="mau-hinh">
+            <div class="khung-hinh hinh-thang"></div>
+            <p>7. Hình thang</p>
+         </div>
+
+         <div class="mau-hinh">
+            <div class="khung-hinh tam-giac-rong"></div>
+            <p>8. Tam giác rộng</p>
+         </div>
+
+         <div class="mau-hinh">
+            <div class="khung-hinh tam-giac-nhon"></div>
+            <p>9. Tam giác nhọn</p>
+         </div>
+
+         <div class="mau-hinh">
+            <div class="khung-hinh tam-giac-can"></div>
+            <p>10. Tam giác cân</p>
+         </div>
+
+         <div class="mau-hinh">
+            <div class="khung-hinh mui-ten-phai"></div>
+            <p>11. Mũi tên phải</p>
+         </div>
+
+         <div class="mau-hinh">
+            <div class="khung-hinh mui-ten-trai"></div>
+            <p>12. Mũi tên trái</p>
+         </div>
+
+         <div class="mau-hinh">
+            <div class="khung-hinh ribbon-la-co"></div>
+            <p>13. Ribbon/Lá cờ</p>
+         </div>
+         <div class="mau-hinh-f8">
+            <div>
+               <div class="chu-f">
+                  <div class="thanh-doc-f"></div>
+                  <div class="thanh-ngang-tren-f"></div>
+                  <div class="thanh-ngang-giua-f"></div>
+               </div>
+               <div class="chu-8">
+                  <div class="lo-tren"></div>
+                  <div class="thanh-ngang-giua-8"></div>
+                  <div class="lo-duoi"></div>
+               </div>
+            </div>
+            <p>14. F8</p>
+         </div>
+      </div>
+   </body>
+</html>

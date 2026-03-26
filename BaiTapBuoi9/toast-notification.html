@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="vi">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Toast Notification</title>
+      <style>
+         * {
+            box-sizing: border-box;
+         }
+
+         body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 48px 24px;
+            font-family: Arial, sans-serif;
+            background: #f3f4f6;
+         }
+
+         /* Ẩn checkbox điều khiển để người dùng chỉ thao tác qua label */
+         #toast-toggle {
+            display: none;
+         }
+
+         /* Tạo nút mở toast */
+         .open-btn {
+            display: inline-block;
+            padding: 14px 22px;
+            border-radius: 10px;
+            background: #303532;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+         }
+
+         /* Trạng thái mặc định: toast bị ẩn */
+         .toast {
+            display: none;
+            width: 320px;
+            margin-top: 24px;
+            padding: 16px 18px;
+            border-radius: 14px;
+            background: #22c55e;
+            color: #ffffff;
+            box-shadow: 0 18px 40px rgba(34, 197, 94, 0.24);
+         }
+
+         /* Khi checkbox được bật thì hiện toast ra */
+         #toast-toggle:checked ~ .toast {
+            display: block;
+         }
+
+         /* Sắp xếp icon, nội dung và nút đóng trên cùng một hàng */
+         .toast-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+         }
+
+         /* Tạo icon tròn trắng để nổi bật trên nền xanh */
+         .toast-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #ffffff;
+            color: #16a34a;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 30px;
+            text-align: center;
+         }
+
+         /* Phần chữ chiếm hết khoảng trống còn lại */
+         .toast-text {
+            flex: 1;
+         }
+
+         .toast-title {
+            margin: 0 0 4px;
+            font-size: 16px;
+            font-weight: 700;
+         }
+
+         /* .toast-message {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.5;
+         } */
+
+         /* Nút đóng cũng là label trỏ về checkbox để tắt toast */
+         .close-btn {
+            display: inline-block;
+            min-width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 28px;
+            text-align: center;
+            cursor: pointer;
+         }
+      </style>
+   </head>
+   <body>
+      <input type="checkbox" id="toast-toggle" />
+      <label for="toast-toggle" class="open-btn">Hiện thông báo</label>
+
+      <div class="toast">
+         <div class="toast-content">
+            <div class="toast-icon">✓</div>
+
+            <div class="toast-text">
+               <p class="toast-title">Lưu thành công.</p>
+               <!-- <p class="toast-message">Lưu thành côsng.</p> -->
+            </div>
+
+            <label for="toast-toggle" class="close-btn">×</label>
+         </div>
+      </div>
+   </body>
+</html>
