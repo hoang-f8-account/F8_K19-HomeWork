@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Document</title>
+      <style>
+         * {
+            box-sizing: border-box;
+         }
+
+         body {
+            font-family: Arial, sans-serif;
+            margin: 24px;
+         }
+
+         .products {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+         }
+
+         .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+         }
+
+         .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: contain;
+         }
+
+         .product-card h2 {
+            min-height: 48px;
+            font-size: 16px;
+            margin: 12px 0;
+         }
+
+         .product-price {
+            color: #e44d26;
+            font-weight: bold;
+         }
+
+         @media (max-width: 900px) {
+            .products {
+               grid-template-columns: repeat(2, 1fr);
+            }
+         }
+
+         @media (max-width: 520px) {
+            .products {
+               grid-template-columns: 1fr;
+            }
+         }
+      </style>
+   </head>
+   <body>
+      <h1>Product Lists</h1>
+      <div class="products"></div>
+   </body>
+   <script src="main.js">
+
+   </script>
+</html>

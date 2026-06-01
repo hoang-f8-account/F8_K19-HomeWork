@@ -76,8 +76,14 @@ const getEmployeeLists = (employees) => {
    });
 };
 
+const getWorkingEmployees = (employees) => {
+   workingEmployees = employees.filter((employee) => employee.status === "working");
+   return workingEmployees
+};
+
 console.log("Kết quả bài 1:");
-getEmployeeLists(employees);
+console.log(getWorkingEmployees(employees));
+
 // -------------------------------------------------
 
 // Bai 2: Lay ra nhan vien lon tuoi nhat
